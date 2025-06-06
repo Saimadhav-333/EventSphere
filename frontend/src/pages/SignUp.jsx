@@ -3,6 +3,9 @@ import { ArrowRight, UserPlus, Mail, Lock, User, AlertCircle, Calendar, Ticket, 
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import API_BASE_URL from '../api/config.js';
+
+
 export default function SignUp() {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
@@ -29,7 +32,7 @@ export default function SignUp() {
 
     try {
       // Call your signup API
-      const response = await axios.post("http://localhost:8086/public/create-user", form);
+      const response = await axios.post(`${API_BASE_URL}/public/create-user`, form);
       console.log(response);
       // On success, redirect to login page
       alert("Signup successful! Redirecting to login...");

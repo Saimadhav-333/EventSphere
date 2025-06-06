@@ -11,6 +11,8 @@ import ProfileTab from './tabs/ProfileTab';
 import LoadingScreen from './ui/LoadingScreen';
 import ErrorAlert from './ui/ErrorAlert';
 import { formatDate, formatTime } from './utils/dateUtils';
+import API_BASE_URL from '../api/config.js';
+
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -33,13 +35,13 @@ export default function Dashboard() {
 
     const fetchData = async () => {
       try {
-        const userResponse = await axios.get("http://localhost:8086/user", {
+        const userResponse = await axios.get(`${API_BASE_URL}/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const allEventsResponse = await axios.get("http://localhost:8086/events", {
+        const allEventsResponse = await axios.get(`${API_BASE_URL}/events`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const registeredEventsResponse = await axios.get("http://localhost:8086/register/my-registrations", {
+        const registeredEventsResponse = await axios.get(`${API_BASE_URL}/register/my-registrations`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -61,13 +63,13 @@ export default function Dashboard() {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:8086/register/${eventId}`,
+        `${API_BASE_URL}/register/${eventId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      const registeredEventsResponse = await axios.get("http://localhost:8086/register/my-registrations", {
+      const registeredEventsResponse = await axios.get(`${API_BASE_URL}/register/my-registrations`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setRegisteredEvents(registeredEventsResponse.data);
@@ -92,7 +94,7 @@ export default function Dashboard() {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        "http://localhost:8086/user/update",
+        `${API_BASE_URL}/user/update`,
         editedUser,
         {
           headers: { Authorization: `Bearer ${token}` },

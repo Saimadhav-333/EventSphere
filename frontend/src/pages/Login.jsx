@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { ArrowRight, LogIn, Mail, Lock, User, AlertCircle, Calendar, Ticket, Bell } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from '../api/config.js';
+
 
 export default function Login() {
   const navigate = useNavigate();
@@ -26,7 +28,7 @@ export default function Login() {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:8086/public/login", form);
+      const response = await axios.post(`${API_BASE_URL}/public/login`, form);
 
       const { token, role } = response.data;
 

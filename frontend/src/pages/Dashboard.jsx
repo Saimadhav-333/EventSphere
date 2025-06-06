@@ -11,6 +11,8 @@ import AllEventsTab from '../dashboardPages/AllEventsTab';
 import MyEventsTab from '../dashboardPages/MyEventsTab';
 import ProfileTab from '../dashboardPages/ProfileTab';
 import { formatDate, formatTime } from '../dashboardPages/utils';
+import API_BASE_URL from '../api/config.js';
+
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -34,13 +36,13 @@ export default function UserDashboard() {
 
     const fetchData = async () => {
       try {
-        const userResponse = await axios.get("http://localhost:8086/user", {
+        const userResponse = await axios.get(`${API_BASE_URL}/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const allEventsResponse = await axios.get("http://localhost:8086/events", {
+        const allEventsResponse = await axios.get(`${API_BASE_URL}/events`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const registeredEventsResponse = await axios.get("http://localhost:8086/register/my-registrations", {
+        const registeredEventsResponse = await axios.get(`${API_BASE_URL}/register/my-registrations`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -62,13 +64,13 @@ export default function UserDashboard() {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:8086/register/${eventId}`,
+        `${API_BASE_URL}/register/${eventId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      const registeredEventsResponse = await axios.get("http://localhost:8086/register/my-registrations", {
+      const registeredEventsResponse = await axios.get(`${API_BASE_URL}/register/my-registrations`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setRegisteredEvents(registeredEventsResponse.data);
@@ -80,7 +82,7 @@ export default function UserDashboard() {
   const cancelRegistration = async (registrationId) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:8086/register/${registrationId}`, {
+      await axios.delete(`${API_BASE_URL}/register/${registrationId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setRegisteredEvents(registeredEvents.filter(reg => reg.id !== registrationId));
@@ -93,7 +95,7 @@ export default function UserDashboard() {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        "http://localhost:8086/user/update",
+        `${API_BASE_URL}/user/update`,
         editedUser,
         {
           headers: { Authorization: `Bearer ${token}` },

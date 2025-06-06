@@ -7,6 +7,8 @@ import RegistrationsList from '../adminPages/RegistrationsList';
 import EventsList from '../adminPages/EventsList';
 import { Menu } from 'lucide-react';
 import axios from 'axios';
+import API_BASE_URL from '../api/config.js';
+
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -25,7 +27,7 @@ const AdminDashboard = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:8086/user', {
+        const response = await axios.get(`${API_BASE_URL}/user`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
