@@ -3,22 +3,27 @@ version: '3.9'
 services:
   backend:
     build:
-      context: ./backend
+      context: ./eventRegistrationApp
     container_name: backend
     ports:
       - "8086:8086"
     networks:
       - app-network
+    environment:
+      SPRING_APPLICATION_JSON: '{"server": {"port": 8086}}'
 
   frontend:
     build:
       context: ./frontend
     container_name: frontend
     ports:
-      - "8080:80"   # NGINX uses port 80 inside the container
+      - "8080:80"
     networks:
       - app-network
+    depends_on:
+      - backend
 
 networks:
   app-network:
     driver: bridge
+    name: app-network  # Explicitly name the network
