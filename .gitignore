@@ -1,0 +1,40 @@
+# ===== BACKEND: Spring Boot (eventRegistrationApp) =====
+/eventRegistrationApp/target/
+/eventRegistrationApp/.idea/
+/eventRegistrationApp/*.iml
+/eventRegistrationApp/.classpath
+/eventRegistrationApp/.project
+/eventRegistrationApp/.settings/
+/eventRegistrationApp/*.log
+
+# Maven specific
+/eventRegistrationApp/.mvn/
+/eventRegistrationApp/mvnw
+/eventRegistrationApp/mvnw.cmd
+!/eventRegistrationApp/.mvn/wrapper/maven-wrapper.jar
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# ===== FRONTEND: React Vite (frontend) =====
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.env.local
+/frontend/.env.*.local
+
+# IDE files (optional)
+/frontend/.vscode/
+
+
+# Ignore env files
+.env
+eventRegistrationApp/.env
+frontend/.env
+
+*.env
+*/**/application.properties
+
+# Secrets
+*.env
+*.properties
