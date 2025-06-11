@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Search, Filter, Check, X, Calendar, User, MapPin, AlertCircle } from 'lucide-react';
 
+import API_BASE_URL from '../api/config.js';
+
 const RegistrationsList = () => {
   const [registrations, setRegistrations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +20,7 @@ const RegistrationsList = () => {
   
   // Configure axios defaults
   const api = axios.create({
-    baseURL: 'http://localhost:8086',
+    baseURL: API_BASE_URL,
     headers: {
       'Content-Type': 'application/json',
     }

@@ -4,6 +4,7 @@ import axios from 'axios';
 import StatCard from '../adminPages/StatCard';
 import RecentActivityList from './RecentActivityList';
 import Chart from '../adminPages/Chart';
+import API_BASE_URL from '../api/config.js';
 
 const DashboardOverview = () => {
   const [stats, setStats] = useState({
@@ -15,8 +16,6 @@ const DashboardOverview = () => {
   
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  const SERVER_URL = 'http://localhost:8086';
   
   const headers = {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -31,10 +30,10 @@ const DashboardOverview = () => {
       try {
         // Fetch users, events, and registrations in parallel
         const [usersResponse, eventsResponse, registrationsResponse, pendingResponse] = await Promise.all([
-          axios.get(`${SERVER_URL}/admin/users`, { headers }),
-          axios.get(`${SERVER_URL}/admin/events`, { headers }),
-          axios.get(`${SERVER_URL}/admin/registrations`, { headers }),
-          axios.get(`${SERVER_URL}/admin/registrations/pending`, { headers })
+          axios.get(`${API_BASE_URL}/admin/users`, { headers }),
+          axios.get(`${API_BASE_URL}/admin/events`, { headers }),
+          axios.get(`${API_BASE_URL}/admin/registrations`, { headers }),
+          axios.get(`${API_BASE_URL}/admin/registrations/pending`, { headers })
         ]);
         
         setStats({
@@ -62,7 +61,7 @@ const DashboardOverview = () => {
     const fetchRecentActivities = async () => {
       setActivitiesLoading(true);
       try {
-        const response = await axios.get(`${SERVER_URL}/admin/activities/recent`, { headers });
+        const response = await axios.get(`${API_BASE_URL}/admin/activities/recent`, { headers });
         setActivities(response.data);
       } catch (error) {
         console.error('Error fetching recent activities:', error);
@@ -86,11 +85,11 @@ const DashboardOverview = () => {
     setError(null);
     
     Promise.all([
-      axios.get(`${SERVER_URL}/admin/users`, { headers }),
-      axios.get(`${SERVER_URL}/admin/events`, { headers }),
-      axios.get(`${SERVER_URL}/admin/registrations`, { headers }),
-      axios.get(`${SERVER_URL}/admin/registrations/pending`, { headers }),
-      axios.get(`${SERVER_URL}/admin/activities/recent`, { headers })
+      axios.get(`${API_BASE_URL}/admin/users`, { headers }),
+      axios.get(`${API_BASE_URL}/admin/events`, { headers }),
+      axios.get(`${API_BASE_URL}/admin/registrations`, { headers }),
+      axios.get(`${API_BASE_URL}/admin/registrations/pending`, { headers }),
+      axios.get(`${API_BASE_URL}/admin/activities/recent`, { headers })
     ]).then(([usersResponse, eventsResponse, registrationsResponse, pendingResponse, activitiesResponse]) => {
       setStats({
         totalUsers: usersResponse.data.length,

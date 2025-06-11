@@ -1,29 +1,45 @@
-version: '3.9'
+# version: '3'
+# services:
+#   frontend:
+#     image: saimadhavdocker/uday
+#     container_name: uday_frontend
+#     ports:
+#       - "5173:80"
+#     environment:
+#       - VITE_API_URL=http://52.201.217.82:8080
+#     networks:
+#       - sai-network
 
+#   backend:
+#     image: saimadhavdocker/backend
+#     container_name: uday_backend
+#     ports:
+#       - "8080:8080"
+#     networks:
+#       - sai-network
+
+# networks:
+#   sai-network:
+#     driver: bridge
+
+version: '3'
 services:
-  backend:
-    build:
-      context: ./eventRegistrationApp
-    container_name: backend
-    ports:
-      - "8086:8086"
-    networks:
-      - app-network
-    environment:
-      SPRING_APPLICATION_JSON: '{"server": {"port": 8086}}'
-
   frontend:
-    build:
-      context: ./frontend
-    container_name: frontend
+    image: saimadhavdocker/uday
+    container_name: uday_frontend
     ports:
-      - "8080:80"
+      - "5173:80"
     networks:
-      - app-network
-    depends_on:
-      - backend
+      - sai-network
+
+  backend:
+    image: saimadhavdocker/backend
+    container_name: uday_backend
+    ports:
+      - "8080:8080"
+    networks:
+      - sai-network
 
 networks:
-  app-network:
+  sai-network:
     driver: bridge
-    name: app-network  # Explicitly name the network

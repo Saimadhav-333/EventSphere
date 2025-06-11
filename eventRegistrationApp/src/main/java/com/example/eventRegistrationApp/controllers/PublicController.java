@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/public")
+@RequestMapping("/api/public")
 public class PublicController {
 
     @Autowired

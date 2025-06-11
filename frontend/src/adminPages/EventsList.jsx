@@ -4,6 +4,8 @@ import Modal from './Modal';
 import EventForm from './EventForm';
 import axios from 'axios';
 
+import API_BASE_URL from '../api/config.js';
+
 const EventsList = () => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,14 +22,14 @@ const EventsList = () => {
       try {
         setError(null);
         const token = localStorage.getItem('token');
-        const eventsResponse = await axios.get('http://localhost:8086/admin/events', {
+        const eventsResponse = await axios.get(`${API_BASE_URL}/admin/events`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
         // Fetch registrations data
-        const registrationsResponse = await axios.get('http://localhost:8086/admin/registrations', {
+        const registrationsResponse = await axios.get(`${API_BASE_URL}/admin/registrations`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -86,7 +88,7 @@ const EventsList = () => {
     try {
       setError(null);
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:8086/admin/events/${eventToDelete.id}`, {
+      await axios.delete(`${API_BASE_URL}/admin/events/${eventToDelete.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -115,7 +117,7 @@ const EventsList = () => {
       if (currentEvent) {
         // PUT (Update)
         const response = await axios.put(
-          `http://localhost:8086/admin/events/${currentEvent.id}`,
+          `${API_BASE_URL}/admin/events/${currentEvent.id}`,
           eventData,
           config
         );
@@ -129,7 +131,7 @@ const EventsList = () => {
       } else {
         // POST (Create)
         const response = await axios.post(
-          'http://localhost:8086/admin/events',
+          `${API_BASE_URL}/admin/events`,
           eventData,
           config
         );

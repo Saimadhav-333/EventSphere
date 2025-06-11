@@ -4,6 +4,8 @@ import { Trash2, Search, Plus, UserPlus, UsersRound, AlertCircle } from 'lucide-
 import Modal from './Modal';
 import UserForm from './UserForm';
 
+import API_BASE_URL from '../api/config.js';
+
 const UsersList = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,7 +16,7 @@ const UsersList = () => {
   const [error, setError] = useState(null);
   const [deleteInProgress, setDeleteInProgress] = useState(false);
 
-  const SERVER_URL = 'http://localhost:8086';
+  const SERVER_URL = API_BASE_URL;
   
   const headers = {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
