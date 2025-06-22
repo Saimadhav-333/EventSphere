@@ -1,42 +1,26 @@
-# version: '3'
-# services:
-#   frontend:
-#     image: saimadhavdocker/uday
-#     container_name: uday_frontend
-#     ports:
-#       - "5173:80"
-#     environment:
-#       - VITE_API_URL=http://52.201.217.82:8080
-#     networks:
-#       - sai-network
-
-#   backend:
-#     image: saimadhavdocker/backend
-#     container_name: uday_backend
-#     ports:
-#       - "8080:8080"
-#     networks:
-#       - sai-network
-
-# networks:
-#   sai-network:
-#     driver: bridge
-
 version: '3'
 services:
-  frontend:
-    image: saimadhavdocker/uday
-    container_name: uday_frontend
-    ports:
-      - "5173:80"
-    networks:
-      - sai-network
-
   backend:
+    build:
+      context: ./backend
     image: saimadhavdocker/backend
     container_name: uday_backend
     ports:
       - "8080:8080"
+    networks:
+      - sai-network
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://uday_backend:8080
+    image: saimadhavdocker/uday
+    container_name: uday_frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
     networks:
       - sai-network
 

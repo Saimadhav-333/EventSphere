@@ -1,0 +1,5 @@
+docker build -t saimadhavdocker/uday . --build-arg VITE_API_URL=http://34.239.129.250:8080
+
+
+docker push saimadhavdocker/backend:latest       
+docker build -t saimadhavdocker/backend:latest .
